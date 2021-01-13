@@ -16,7 +16,12 @@ pipeline {
                     sh "docker push timbobb/nodeapp:${DOCKER_TAG}"
                 }
             }
-
+        }
+        stage('Deploy to Kubernetes'){
+            steps{
+                sh "chmod +x changeTag.sh"
+                sh "./changeTag.sh ${DOCKER_TAG}"
+            }
         }
     }
 }
